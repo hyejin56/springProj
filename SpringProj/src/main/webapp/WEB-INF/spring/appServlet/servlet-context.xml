@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- HandlerMapping & HandlerAdapter의 역할로써, 
+	commponet-scan을 통해서 스캔된 bean중에 해당 요청과 알맞은 controller를 찾아 연결 -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- 다시돌아와서 Controller에서 반환된 'home'을 가지고 view로 접근할 수 있는 경로를 만듦.
+		 이 과정을 거치면 /WEB-INF/Views/home.jsp라는 경로가 최종적으로 만들어지게되고 	
+		 InternalResourceViewResolver를 통해 이에 맞는 View를 찾음.
+	 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	<!-- 해당 위치의 어노테이션을 읽어들여서 bean으로 등록 -->
+	<context:component-scan base-package="com.nws.springProj" />
+	
+	
+	
+</beans:beans>
